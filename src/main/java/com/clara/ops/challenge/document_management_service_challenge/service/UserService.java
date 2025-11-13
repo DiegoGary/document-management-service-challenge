@@ -6,5 +6,5 @@ public interface UserService {
 
     User validateAndCreateUser(String name);
 
-    User getUser(String id);
+    User getUser(Integer id);
 }

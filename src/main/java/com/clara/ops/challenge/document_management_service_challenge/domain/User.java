@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user", schema = "document_schema")
+@Table(name = "document_user", schema = "document_schema")
 public class User {
 
     @Id

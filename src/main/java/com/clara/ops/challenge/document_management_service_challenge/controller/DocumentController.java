@@ -33,7 +33,7 @@ public interface DocumentController {
     @PayloadTooLarge
     @ErrorResponseAnnotations
     @RequestMapping(
-            value = "/document/upload",
+            value = "/document-management/upload",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST
@@ -70,14 +70,14 @@ public interface DocumentController {
     )
     @ErrorResponseAnnotations
     @RequestMapping(
-            value = "/document/search",
+            value = "/document-management/search",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST
     )
     ResponseEntity<PaginatedDocumentSearchResponse> searchDocuments(
             @Parameter(in = ParameterIn.DEFAULT, description = "The document search request object",
-                    required = true, schema = @Schema(implementation = PaginatedDocumentSearchResponse.class))
+                    required = true, schema = @Schema(implementation = DocumentSearchRequest.class))
             @RequestBody DocumentSearchRequest searchRequest,
             @Parameter(in = ParameterIn.QUERY, description = "The page number (zero-based)",
             required = false, schema = @Schema(minimum = "0", defaultValue = "0"))
@@ -100,7 +100,7 @@ public interface DocumentController {
     )
     @ErrorResponseAnnotations
     @RequestMapping(
-            value = "/document/download/{documentId}",
+            value = "/document-management/download/{documentId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET
     )
