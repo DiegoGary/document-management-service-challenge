@@ -14,16 +14,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DocumentDownloadResponse {
 
-    @JsonProperty("document_name")
-    @Schema(description = "The document name")
-    private String documentName;
+  @JsonProperty("document_name")
+  @Schema(description = "The document name")
+  private String documentName;
 
-    @JsonProperty("user")
-    @Schema(description = "The user that uploaded the document")
-    private String user;
+  @JsonProperty("user")
+  @Schema(description = "The user that uploaded the document")
+  private String user;
 
-    @JsonProperty("downloadURL")
-    @Schema(description = "The MinIO document download url")
-    private String downloadURL;
-
+  @JsonProperty("downloadURL")
+  @Schema(description = "The MinIO document download url")
+  private String downloadURL;
 }

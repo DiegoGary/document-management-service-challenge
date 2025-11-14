@@ -4,7 +4,7 @@ import com.clara.ops.challenge.document_management_service_challenge.domain.enti
 
 public interface UserService {
 
-    User validateAndCreateUser(String name);
+  User validateAndCreateUser(String name);
 
-    User getUser(Integer id);
+  User getUser(Integer id);
 }

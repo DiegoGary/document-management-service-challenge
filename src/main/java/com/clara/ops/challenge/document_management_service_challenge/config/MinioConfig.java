@@ -9,21 +9,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MinioConfig {
 
-    @Value("${minio.endpoint}")
-    private String endpoint;
-    @Value("${minio.port}")
-    private Integer port;
-    @Value("${minio.secure}")
-    private boolean isSecure;
-    @Value("${minio.user}")
-    private String user;
-    @Value("${minio.password}")
-    private String password;
+  @Value("${minio.endpoint}")
+  private String endpoint;
 
-    @Bean
-    public MinioClient minioClient(){
-        return MinioClient.builder()
-                .endpoint(endpoint, port, isSecure)
-                .credentials(user, password).build();
-    }
+  @Value("${minio.port}")
+  private Integer port;
+
+  @Value("${minio.secure}")
+  private boolean isSecure;
+
+  @Value("${minio.user}")
+  private String user;
+
+  @Value("${minio.password}")
+  private String password;
+
+  @Bean
+  public MinioClient minioClient() {
+    return MinioClient.builder()
+        .endpoint(endpoint, port, isSecure)
+        .credentials(user, password)
+        .build();
+  }
 }
