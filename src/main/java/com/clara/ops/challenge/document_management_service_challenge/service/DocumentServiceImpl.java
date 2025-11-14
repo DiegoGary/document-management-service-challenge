@@ -2,12 +2,12 @@ package com.clara.ops.challenge.document_management_service_challenge.service;
 
 import com.clara.ops.challenge.document_management_service_challenge.controller.dto.DocumentDownloadResponse;
 import com.clara.ops.challenge.document_management_service_challenge.controller.dto.DocumentSearchRequest;
-import com.clara.ops.challenge.document_management_service_challenge.domain.Document;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.Document;
 
-import com.clara.ops.challenge.document_management_service_challenge.domain.Tag;
-import com.clara.ops.challenge.document_management_service_challenge.domain.User;
-import com.clara.ops.challenge.document_management_service_challenge.repository.DocumentRepository;
-import com.clara.ops.challenge.document_management_service_challenge.repository.TagRepository;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.Tag;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.User;
+import com.clara.ops.challenge.document_management_service_challenge.domain.repository.DocumentRepository;
+import com.clara.ops.challenge.document_management_service_challenge.domain.repository.TagRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

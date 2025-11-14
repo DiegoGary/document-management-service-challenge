@@ -1,6 +1,6 @@
-package com.clara.ops.challenge.document_management_service_challenge.repository;
+package com.clara.ops.challenge.document_management_service_challenge.domain.repository;
 
-import com.clara.ops.challenge.document_management_service_challenge.domain.Tag;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.clara.ops.challenge.document_management_service_challenge.service;
 
-import com.clara.ops.challenge.document_management_service_challenge.domain.User;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.User;
 
 public interface UserService {
 

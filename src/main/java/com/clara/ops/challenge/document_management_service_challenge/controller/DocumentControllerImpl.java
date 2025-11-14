@@ -4,13 +4,12 @@ import com.clara.ops.challenge.document_management_service_challenge.controller.
 import com.clara.ops.challenge.document_management_service_challenge.controller.dto.DocumentDownloadResponse;
 import com.clara.ops.challenge.document_management_service_challenge.controller.dto.DocumentSearchRequest;
 import com.clara.ops.challenge.document_management_service_challenge.controller.dto.PaginatedDocumentSearchResponse;
-import com.clara.ops.challenge.document_management_service_challenge.domain.Document;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.Document;
 import com.clara.ops.challenge.document_management_service_challenge.service.DocumentService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

@@ -1,8 +1,8 @@
 package com.clara.ops.challenge.document_management_service_challenge.utils;
 
 import com.clara.ops.challenge.document_management_service_challenge.controller.dto.DocumentDTO;
-import com.clara.ops.challenge.document_management_service_challenge.domain.Document;
-import com.clara.ops.challenge.document_management_service_challenge.domain.Tag;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.Document;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.Tag;
 import org.modelmapper.Converter;
 import org.modelmapper.spi.MappingContext;
 

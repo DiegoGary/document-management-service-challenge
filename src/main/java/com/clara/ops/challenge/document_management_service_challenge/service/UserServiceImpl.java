@@ -1,7 +1,7 @@
 package com.clara.ops.challenge.document_management_service_challenge.service;
 
-import com.clara.ops.challenge.document_management_service_challenge.domain.User;
-import com.clara.ops.challenge.document_management_service_challenge.repository.UserRepository;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.User;
+import com.clara.ops.challenge.document_management_service_challenge.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

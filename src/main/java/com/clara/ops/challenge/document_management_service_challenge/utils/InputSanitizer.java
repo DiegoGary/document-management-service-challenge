@@ -1,9 +1,7 @@
 package com.clara.ops.challenge.document_management_service_challenge.utils;
 
-import com.clara.ops.challenge.document_management_service_challenge.domain.Tag;
-import org.springframework.http.HttpStatus;
+import com.clara.ops.challenge.document_management_service_challenge.domain.entities.Tag;
 import org.springframework.util.StringUtils;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
