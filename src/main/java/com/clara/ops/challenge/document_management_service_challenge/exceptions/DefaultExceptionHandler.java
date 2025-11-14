@@ -65,8 +65,8 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({MinioException.class, InternalException.class, Exception.class})
     public ResponseEntity<Object> internalServerError(Exception exception) {
         log.error("Internal server error {}", exception.getMessage());
-        return new ResponseEntity<>(createErrorResponse(exception, HttpStatus.UNAUTHORIZED),
-                new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(createErrorResponse(exception, HttpStatus.INTERNAL_SERVER_ERROR),
+                new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private ErrorResponse createErrorResponse(Exception e, HttpStatus status){

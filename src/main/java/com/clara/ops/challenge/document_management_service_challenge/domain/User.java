@@ -2,10 +2,7 @@ package com.clara.ops.challenge.document_management_service_challenge.domain;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "document_user", schema = "document_schema")
 public class User {
 
@@ -27,4 +25,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Document> documents;
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

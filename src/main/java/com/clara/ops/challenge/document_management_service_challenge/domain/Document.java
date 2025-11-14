@@ -1,10 +1,7 @@
 package com.clara.ops.challenge.document_management_service_challenge.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -48,4 +45,9 @@ public class Document implements Serializable {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

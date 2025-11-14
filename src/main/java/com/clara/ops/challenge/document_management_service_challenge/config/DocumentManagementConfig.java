@@ -1,5 +1,6 @@
 package com.clara.ops.challenge.document_management_service_challenge.config;
 
+import com.clara.ops.challenge.document_management_service_challenge.utils.DocumentToDTOConverter;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.modelmapper.ModelMapper;
@@ -11,7 +12,9 @@ public class DocumentManagementConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.addConverter(new DocumentToDTOConverter());
+        return modelMapper;
     }
 
     @Bean

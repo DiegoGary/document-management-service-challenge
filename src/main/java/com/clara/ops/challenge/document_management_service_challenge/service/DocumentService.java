@@ -1,5 +1,6 @@
 package com.clara.ops.challenge.document_management_service_challenge.service;
 
+import com.clara.ops.challenge.document_management_service_challenge.controller.dto.DocumentDownloadResponse;
 import com.clara.ops.challenge.document_management_service_challenge.controller.dto.DocumentSearchRequest;
 import com.clara.ops.challenge.document_management_service_challenge.domain.Document;
 import org.springframework.data.domain.Page;
@@ -13,5 +14,5 @@ public interface DocumentService {
 
     Page<Document> searchDocuments(DocumentSearchRequest documentSearchRequest, Integer page, Integer size);
 
-    Document downloadDocument(Integer documentId);
+    DocumentDownloadResponse getDocumentDownloadURL(Integer documentId);
 }

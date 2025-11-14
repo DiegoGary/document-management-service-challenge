@@ -1,10 +1,7 @@
 package com.clara.ops.challenge.document_management_service_challenge.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
@@ -28,5 +25,10 @@ public class Tag {
 
     public Tag(String tag) {
         this.tag = tag;
+    }
+
+    @Override
+    public String toString(){
+        return tag;
     }
 }

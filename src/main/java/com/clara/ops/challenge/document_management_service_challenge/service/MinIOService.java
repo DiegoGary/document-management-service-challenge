@@ -1,14 +1,16 @@
 package com.clara.ops.challenge.document_management_service_challenge.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.InputStream;
 
 public interface MinIOService {
 
-    Boolean bucketExists(String bucket);
+    Boolean bucketExists();
 
-    String createBucket(String bucket);
+    void createBucket();
 
-    String getDocumentURL(String bucket, String documentPath);
+    String getDocumentURL(String documentPath);
 
-    String uploadDocument(String bucket, String documentName, InputStream fileStream, Long partSize);
+    String uploadDocument(String user, String documentName, MultipartFile file);
 }

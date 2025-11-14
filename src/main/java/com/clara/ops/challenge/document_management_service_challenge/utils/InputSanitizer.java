@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -15,8 +16,8 @@ public class InputSanitizer {
 
     public static String sanitizeString(String input){
         if(input == null) return input;
-        input = input.trim().toLowerCase().replace(' ', '-');
-        return ACCEPTED_CHARS.matcher(input).replaceAll("-");
+        input = input.trim().toLowerCase();
+        return ACCEPTED_CHARS.matcher(input.replace(' ', '-')).replaceAll("-");
     }
 
     public static String sanitizeFileName(String filename){
@@ -31,6 +32,9 @@ public class InputSanitizer {
     }
 
     public static List<Tag> createAndSanitizeTags(List<String> tags){
+        if(tags == null){
+            return new ArrayList<>();
+        }
         return tags.stream().filter(StringUtils::hasText)
                 .map(InputSanitizer::sanitizeString)
                 .map(Tag::new)
@@ -38,6 +42,9 @@ public class InputSanitizer {
     }
 
     public static List<String> createAndSanitizeStringTags(List<String> tags){
+        if(tags == null){
+            return new ArrayList<>();
+        }
         return tags.stream().filter(StringUtils::hasText)
                 .map(InputSanitizer::sanitizeString)
                 .collect(Collectors.toList());

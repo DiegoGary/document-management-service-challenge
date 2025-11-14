@@ -1,0 +1,57 @@
+# Server configuration
+server:
+  servlet:
+    contextPath: /
+  port: 8080
+  error:
+    include-message: always
+    include-stacktrace: never
+
+#Spring configuration
+spring:
+  # PostgreSQL datasource
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${POSTGRESQL_DATABASE}
+    username: ${POSTGRESQL_USERNAME}
+    password: ${POSTGRESQL_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  # JPA DataBase Configuration
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  hibernate:
+    ddl-auto: validate
+  show-sql: false
+
+  # Spring multipart file configuration
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+      file-size-threshold: 1KB
+      resolve-lazily: true
+
+#Minio config
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://localhost}
+  port: 9000
+  secure: false
+  user: ${MINIO_USERNAME}
+  password: ${MINIO_PASSWORD}
+  bucket: clara-challenge-bucket
+  upload:
+    size: 5242881
+
+# Swagger UI Configuration
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  # Api Docs Configuration
+  api-docs:
+    path: /api-docs
+    version: OPENAPI_3_0
+    enabled: true

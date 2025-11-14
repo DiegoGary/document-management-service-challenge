@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -62,6 +63,7 @@ public class DocumentControllerImpl implements DocumentController {
 
     @Override
     public ResponseEntity<DocumentDownloadResponse> downloadDocument(Integer documentId) {
-        return null;
+        log.info("Received request to download document with Id: {}", documentId);
+        return new ResponseEntity<>(documentService.getDocumentDownloadURL(documentId), HttpStatus.OK);
     }
 }
