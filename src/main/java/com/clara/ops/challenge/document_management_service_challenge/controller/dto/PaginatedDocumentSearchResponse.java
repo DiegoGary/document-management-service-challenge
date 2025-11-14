@@ -32,7 +32,7 @@ public class PaginatedDocumentSearchResponse {
 
   @JsonProperty("numberOfDocuments")
   @Schema(example = "80", description = "The total number of documents that are returned")
-  private int numberOfDocuments;
+  private long numberOfDocuments;
 
   @JsonProperty("documents")
   @Schema(description = "The list of documents")

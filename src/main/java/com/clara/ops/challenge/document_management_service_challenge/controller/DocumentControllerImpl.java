@@ -57,7 +57,7 @@ public class DocumentControllerImpl implements DocumentController {
     response.setDocuments(documentDTOS);
     response.setPage(page);
     response.setSize(size);
-    response.setNumberOfDocuments(documentPage.getNumberOfElements());
+    response.setNumberOfDocuments(documentPage.getTotalElements());
     response.setTotalPages(documentPage.getTotalPages());
     return new ResponseEntity<>(response, HttpStatus.OK);
   }

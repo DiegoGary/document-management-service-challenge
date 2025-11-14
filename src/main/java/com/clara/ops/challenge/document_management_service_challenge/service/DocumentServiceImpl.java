@@ -9,6 +9,8 @@ import com.clara.ops.challenge.document_management_service_challenge.domain.enti
 import com.clara.ops.challenge.document_management_service_challenge.domain.entities.User;
 import com.clara.ops.challenge.document_management_service_challenge.domain.repository.DocumentRepository;
 import com.clara.ops.challenge.document_management_service_challenge.domain.repository.TagRepository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -66,6 +68,7 @@ public class DocumentServiceImpl implements DocumentService {
     doc.setFileSize(file.getSize());
     doc.setFileType(file.getContentType());
     doc.setMinioPath(filepath);
+    doc.setCreatedAt(LocalDateTime.now());
     Document savedDocument = documentRepository.save(doc);
     tagList.forEach(
         t -> {
