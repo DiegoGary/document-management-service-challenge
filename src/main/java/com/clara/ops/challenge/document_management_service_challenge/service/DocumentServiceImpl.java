@@ -75,7 +75,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public Page<Document> searchDocuments(DocumentSearchRequest documentSearchRequest, Integer page, Integer size) {
         String username = sanitizeString(documentSearchRequest.getUser());
-        String filename = sanitizeFileName(documentSearchRequest.getName());
+        String filename = sanitizeSearchFileName(documentSearchRequest.getName());
         List<String> tags = createAndSanitizeStringTags(documentSearchRequest.getTags());
         Sort sort = Sort.by("createdAt").descending();
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -111,6 +111,7 @@ public class DocumentServiceImpl implements DocumentService {
             response.setDownloadURL(path);
             response.setDocumentName(doc.getName());
             response.setUser(doc.getUser().getName());
+            return response;
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Document was not found");
     }

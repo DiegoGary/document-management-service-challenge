@@ -21,13 +21,18 @@ public class InputSanitizer {
     }
 
     public static String sanitizeFileName(String filename){
+        filename = sanitizeSearchFileName(filename);
+        if (!filename.endsWith(".pdf")) {
+              filename += ".pdf";
+        }
+        return filename;
+    }
+
+    public static String sanitizeSearchFileName(String filename){
         if(filename == null) {
             return null;
         };
         filename = filename.trim().toLowerCase();
-        if (!filename.endsWith(".pdf")) {
-              filename += ".pdf";
-        }
         return ACCEPTED_CHARS.matcher(filename.replace(' ', '-')).replaceAll("-");
     }
 

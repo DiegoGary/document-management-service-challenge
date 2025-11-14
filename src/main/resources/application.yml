@@ -11,7 +11,7 @@ server:
 spring:
   # PostgreSQL datasource
   datasource:
-    url: jdbc:postgresql://localhost:5432/${POSTGRESQL_DATABASE}
+    url: jdbc:postgresql://${POSTGRESQL_HOST}/${POSTGRESQL_DATABASE}
     username: ${POSTGRESQL_USERNAME}
     password: ${POSTGRESQL_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -36,7 +36,7 @@ spring:
 
 #Minio config
 minio:
-  endpoint: ${MINIO_ENDPOINT:http://localhost}
+  endpoint: ${MINIO_ENDPOINT}
   port: 9000
   secure: false
   user: ${MINIO_USERNAME}
@@ -55,3 +55,10 @@ springdoc:
     path: /api-docs
     version: OPENAPI_3_0
     enabled: true
+
+# Spring boot actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
