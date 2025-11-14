@@ -36,7 +36,7 @@ spring:
 
 #Minio config
 minio:
-  endpoint: ${MINIO_ENDPOINT}
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
   port: 9000
   secure: false
   user: ${MINIO_USERNAME}

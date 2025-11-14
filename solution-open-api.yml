@@ -1,0 +1,329 @@
+openapi: 3.0.1
+info:
+  title: Clara Document Management Service API
+  description: This document service manages the file upload to a MinIO bucket with upload, search and download functionalities
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /document-management/upload:
+    post:
+      tags:
+        - document-controller-impl
+      summary: Upload document endpoint
+      description: This endpoints allows to upload a document with a user and a list of tags
+      operationId: uploadDocument
+      parameters:
+        - name: user
+          in: query
+          description: The document upload user name
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: The document filename
+          required: true
+          schema:
+            type: string
+        - name: tags
+          in: query
+          description: The document tags
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: The file as a multipart binary data
+                  format: binary
+      responses:
+        '201':
+          description: The document was successfully uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Payload Too Large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /document-management/search:
+    post:
+      tags:
+        - document-controller-impl
+      summary: Document search endpoint
+      description: This endpoint allows to perform a paginated search of documents by username, document name, and tags
+      operationId: searchDocuments
+      parameters:
+        - name: page
+          in: query
+          description: The page number (zero-based)
+          required: false
+          schema:
+            minimum: 0
+            type: string
+        - name: size
+          in: query
+          description: The page size (0-N)
+          required: false
+          schema:
+            minimum: 0
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Document(s) were successfully found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDocumentSearchResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /document-management/download/{documentId}:
+    get:
+      tags:
+        - document-controller-impl
+      summary: Document download endpoint
+      description: This endpoint allows to download a document by it's ID, it returns a temporary download URL to the storage location
+      operationId: downloadDocument
+      parameters:
+        - name: documentId
+          in: path
+          description: The document ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDownloadResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    DocumentDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The document ID
+        user:
+          type: string
+          description: The user that uploaded the document
+        name:
+          type: string
+          description: The document filename
+        tags:
+          type: array
+          description: The list of tags that were specified when uploading the document
+          items:
+            type: string
+            description: The list of tags that were specified when uploading the document
+        size:
+          type: integer
+          description: The document file size
+          format: int32
+        type:
+          type: string
+          description: The document file type
+        createdAt:
+          type: string
+          description: The date when the document was uploaded
+      description: The document data transfer object
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        error:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    DocumentSearchRequest:
+      type: object
+      properties:
+        user:
+          type: string
+          description: The user that uploaded the document for the search
+        name:
+          type: string
+          description: The document name to search for
+        tags:
+          type: array
+          description: The list of document tags to search for
+          items:
+            type: string
+            description: The list of document tags to search for
+      description: The document search request object
+    PaginatedDocumentSearchResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: The 0-based page number
+          format: int32
+          example: 0
+        size:
+          type: integer
+          description: The number of items per page
+          format: int32
+          example: 15
+        totalPages:
+          type: integer
+          description: The total number of pages
+          format: int32
+          example: 15
+        numberOfDocuments:
+          type: integer
+          description: The total number of documents that are returned
+          format: int32
+          example: 80
+        documents:
+          type: array
+          description: The list of documents
+          items:
+            $ref: '#/components/schemas/DocumentDTO'
+      description: The response for the document search endpoint with pagination datacontaining the list of documents
+    DocumentDownloadResponse:
+      type: object
+      properties:
+        document_name:
+          type: string
+          description: The document name
+        user:
+          type: string
+          description: The user that uploaded the document
+        downloadURL:
+          type: string
+          description: The MinIO document download url
+      description: The download URL for the document
