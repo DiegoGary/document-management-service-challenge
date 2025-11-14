@@ -29,35 +29,30 @@ services:
       - challenge_minio_data:/data
 #   Include all the necessary settings to include a document management service in the stack
 #   Remember to configure this service to limit the memory to 50MB
-#  document-management-service:
-#    build:
-#      context: ..
-#      dockerfile: Dockerfile
-#    container_name: document-management-service
-#    ports:
-#      - 8080:8080
-#    networks:
-#      - batch_network
-#    depends_on:
-#      - minio
-#      - postgresql
-#    environment:
-#      - JAVA_OPTS=-Xmx50m -Xms50m -XX:MaxRAM=50m -XX:MaxRAMPercentage=95.0
-#      - SPRING_DATASOURCE_URL=${POSTGRESQL_HOST}${POSTGRESQL_DATABASE}
-#      - SPRING_DATASOURCE_USERNAME=${POSTGRESQL_USERNAME}
-#      - SPRING_DATASOURCE_PASSWORD=${POSTGRESQL_PASSWORD}
-#      - MINIO_ENDPOINT=${MINIO_ENDPOINT}
-#      - MINIO_PORT_API=${MINIO_PORT}
-#      - MINIO_SECURE=${MINIO_IS_SECURE}
-#      - MINIO_BUCKET_NAME=${MINIO_BUCKET_NAME}
-#      - MINIO_PART_SIZE=${MINIO_PART_SIZE}
-#      - MINIO_ROOT_USER=${MINIO_USER}
-#      - MINIO_ROOT_PASSWORD=${MINIO_PASSWORD}
-#      - MINIO_PERMIT_AVAILABLE=${MINIO_PERMIT_AVAILABLE}
-#    deploy:
-#      resources:
-#        limits:
-#          memory: 50M
+  document-management-service:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: document-management-service
+    ports:
+      - "8080:8080"
+    networks:
+      - batch_network
+    depends_on:
+      - minio
+      - postgresql
+    environment:
+      - POSTGRESQL_HOST=postgresql_container:5432
+      - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT}
+      - MINIO_USERNAME=${MINIO_USERNAME}
+      - MINIO_PASSWORD=${MINIO_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
 volumes:
   challenge_postgresql_data:

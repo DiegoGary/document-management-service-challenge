@@ -1,19 +1,16 @@
 # syntax=docker/dockerfile:1
-
-FROM openjdk:17-jdk-slim AS build
+FROM maven:3.8.7-amazoncorretto-17 AS build
 WORKDIR /workspace
 
-COPY .mvn .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw -B dependency:go-offline
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-COPY src src
-RUN ./mvnw -B clean package -DskipTests
+FROM amazoncorretto:17 as runtime
 
-FROM openjdk:17-jdk-slim AS runtime
-ENV JAVA_OPTS="-Xms50m -Xmx50m"
+ENV JAVA_OPTS="-Xmx50m -Xms50m -XX:MaxRAM=50m -XX:MaxRAMPercentage=95.0"
 WORKDIR /app
 
 COPY --from=build /workspace/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+CMD java $JAVA_OPTS -jar app.jar
