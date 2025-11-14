@@ -109,7 +109,8 @@ public class DocumentControllerImplTest {
         Assertions.assertThrows(
             ResponseStatusException.class,
             () ->
-                documentController.uploadDocument(testUser, "regular-file", testTags, regularFile));
+                documentController.uploadDocument(
+                    testUser, "regular-file", testTags, invalidTypeFile));
 
     assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     verify(documentService, times(1)).uploadDocument(anyString(), anyString(), anyList(), any());
@@ -118,14 +119,14 @@ public class DocumentControllerImplTest {
   @Test
   void uploadDocument_fileTooLarge() {
     when(documentService.uploadDocument(anyString(), anyString(), anyList(), any()))
-        .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "File type not allowed"));
+        .thenThrow(
+            new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE, "File exceeds maximum size"));
     ResponseStatusException exception =
         Assertions.assertThrows(
             ResponseStatusException.class,
-            () ->
-                documentController.uploadDocument(testUser, "regular-file", testTags, regularFile));
+            () -> documentController.uploadDocument(testUser, "large-file", testTags, largeFile));
 
-    assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    assertEquals(HttpStatus.PAYLOAD_TOO_LARGE, exception.getStatusCode());
     verify(documentService, times(1)).uploadDocument(anyString(), anyString(), anyList(), any());
   }
 }
